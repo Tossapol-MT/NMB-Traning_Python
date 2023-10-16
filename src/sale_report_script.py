@@ -19,38 +19,32 @@ for root, dirs, files in os.walk(path):
         file_path = os.path.join(root,name)
         if file_path.split("\\")[5] == str(year):
             xlsx_file_lists.append(file_path)
-print(xlsx_file_lists)
+# print(xlsx_file_lists)
 
-# %%
 df_lists = []
 for f in xlsx_file_lists:
     df = pd.read_excel(f)
     df_lists.append(df)
 df_lists
 
-# %%
 df_summary = pd.concat(df_lists)
 df_summary
 
-# %%
 pivot = pd.pivot_table(df_summary,index="transaction_date",columns="store",values="amount",aggfunc="sum")
 pivot
 
-# %%
 summary_monthly = pivot.resample("M").sum()
 summary_monthly
 
-# %%
+
 import matplotlib
 fig = summary_monthly.plot(kind="bar",figsize=(20,12),fontsize="26",title="monthly sale summary").get_figure()
 
-# %%
+
 import xlwings as xw
 
-import datetime
 now = datetime.datetime.now()
 date_file_name = f'{str(now.date())}_{str(now.time()).split(".")[0].replace(":","_")}'
-
 
 template = xw.Book(r"D:\NMB-Traning_Python\src\export\sale_template.xlsx")
 

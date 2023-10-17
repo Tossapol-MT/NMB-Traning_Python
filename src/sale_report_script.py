@@ -56,7 +56,7 @@ now = datetime.datetime.now()
 date_file_name = f'{str(now.date())}_{str(now.time()).split(".")[0].replace(":","_")}'
 
 
-template = xw.Book(r"D:\NMB-Traning_Python\src\export\sale_template.xlsx")
+template = xw.Book(r"D:\NMB-Traning_Python\src\data\sale_template.xlsx")
 
 app = xw.apps.active
 sheet = template.sheets["summary"]
@@ -65,7 +65,7 @@ sheet["A1"].value = summary_monthly
 pivote = template.sheets["pivot"]
 pivote["A1"].value = pivot
 
-#add picture
+# add picture
 sheet_report = template.sheets["report"]
 sheet_report["A1"].value = "Summary by month"
 sheet_report['A1'].font.size = 24
